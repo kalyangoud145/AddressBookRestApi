@@ -62,5 +62,23 @@ namespace AddressBookApiTest
                 Assert.AreEqual(contact.name, dataResponse.name);
             }
         }
+        /// <summary>
+        /// UC24
+        /// Tests the update data using put operation.
+        /// </summary>
+        [TestMethod]
+        public void TestUpdateDataUsingPutOperation()
+        {
+            RestRequest request = new RestRequest("contacts/5", Method.PUT);
+            JObject jobject = new JObject();
+            jobject.Add("name", "Madhavan");
+            jobject.Add("contactType", "Fast-Bowler");
+            request.AddParameter("application/json", jobject, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            Contact dataResponse = JsonConvert.DeserializeObject<Contact>(response.Content);
+            Assert.AreEqual(dataResponse.name, "Madhavan");
+            Assert.AreEqual(dataResponse.contactType, "Fast-Bowler");
+        }
     }
 }
