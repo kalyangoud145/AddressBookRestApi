@@ -80,5 +80,19 @@ namespace AddressBookApiTest
             Assert.AreEqual(dataResponse.name, "Madhavan");
             Assert.AreEqual(dataResponse.contactType, "Fast-Bowler");
         }
+        /// <summary>
+        /// UC25
+        /// Tests the delete data using delete operation.
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteDataUsingDeleteOperation()
+        {
+            //Arrange
+            RestRequest request = new RestRequest("contacts/5", Method.DELETE);
+            //Act
+            IRestResponse response = client.Execute(request);
+            //Assert
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
     }
 }
